@@ -467,6 +467,9 @@ const App = () => {
         const transaction = await contract.submitHighScore(score);
         await transaction.wait();
 
+        // After the transaction is successful, save the score to Firestore for the leaderboard
+        await saveHighScoreToFirestore(score);
+
         setSaveScoreLoading(false);
         setModalMessage(`Score of ${score} submitted successfully to the Somnia Network! Transaction Hash: ${transaction.hash}`);
         setIsModalOpen(true);
